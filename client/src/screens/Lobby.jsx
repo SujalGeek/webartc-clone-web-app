@@ -1,14 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
+import { useCallback } from "react";
+import {useSocket} from "../context/SocketProvider";
 
 const LobbyScreen = () => {
-    return 
-    (
-    <div>
-        // Lobby Screen user details entered here
-       <h1> Lobby </h1>
+    const [email,setEmail] = useState("");
+    const [room,setRoom] = useState("");
+    const socket = useSocket();
+
+    console.log(socket);
+    const handleSubmit = useCallback((e)=>{
+        e.preventDefault();
+        socket.emit("room:join",{email,room});
+    },[email,room,socket]);
+
+    return (
+        <div className="lobby-screen">
+           <h1>
+                Lobby Screen
+           </h1>
+           {/* <form onSubmit={}> */}
+           <form onSubmit={handleSubmit}>
+           <label htmlFor="email">Email ID</label>
+           <input type="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)} ></input>
+           <br />
+           <label htmlFor="room">Room Number</label>
+           <input type="text" id="room" value={room} onChange={(e)=>setRoom(e.target.value)}></input>
+              <br />
+           <button type="submit">Join Room</button>
+           <br/>
+           </form>
         </div>
-
-
-    )
+    );
     };
 export default LobbyScreen;

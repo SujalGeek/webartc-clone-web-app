@@ -1,8 +1,19 @@
-const {Server} = require("socket.io")
+const { Server } = require("socket.io");
 
 // PORT 8000
-const io = new Server(8000)
+const io = new Server(8000, {
+  cors: true,
+});
 // Connection
-io.on('connection',(socket)=>{
-    console.log("Socket connected",socket.id)
-})
+const emailToSocketIdMap = new Map();
+const socketIdToEmailMap = new Map();
+
+io.on("connection", (socket) => {
+  console.log("Socket connected", socket.id);
+  socket.on("room:join", (data) => {
+    const { email, room } = data;
+    emailToSocketIdMap.set(email, socket.id);
+    socketIdToEmailMap.set(socket.id, email);
+    socket.to(room).emit("room:join", email);
+  });
+});
