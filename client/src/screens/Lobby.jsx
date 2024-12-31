@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useCallback } from "react";
 import {useSocket} from "../context/SocketProvider";
 
@@ -12,6 +12,12 @@ const LobbyScreen = () => {
         e.preventDefault();
         socket.emit("room:join",{email,room});
     },[email,room,socket]);
+
+    useEffect(()=>{
+        socket.on("room:joined",(data)=>{
+        console.log(`Data from BE ${data}`);
+    })
+},[socket]);
 
     return (
         <div className="lobby-screen">
