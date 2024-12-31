@@ -1,13 +1,14 @@
 import React from "react";
 
-const Lobby = () => {
+const LobbyScreen = () => {
     return 
     (
     <div>
+        // Lobby Screen user details entered here
        <h1> Lobby </h1>
         </div>
 
 
     )
     };
-export default Lobby;
+export default LobbyScreen;
