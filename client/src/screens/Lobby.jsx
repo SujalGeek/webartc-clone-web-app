@@ -14,7 +14,7 @@ const LobbyScreen = () => {
     },[email,room,socket]);
 
     useEffect(()=>{
-        socket.on("room:joined",(data)=>{
+        socket.on("room:join",(data)=>{
         console.log(`Data from BE ${data}`);
     })
 },[socket]);
