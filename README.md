@@ -12,3 +12,6 @@ npm init -y
 
 # Installing the packages 
 npm install
+
+# Socket io installation
+npm i socket-io
